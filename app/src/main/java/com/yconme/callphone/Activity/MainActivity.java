@@ -162,6 +162,7 @@ public class MainActivity extends MyBaseActivity {
                 if (isboolean == false) {
                     builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle("注意");
+
                     View inflate = LayoutInflater.from(MainActivity.this).inflate(R.layout.main_dialog_activity, null, false);
                     builder.setView(inflate);
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -180,7 +181,7 @@ public class MainActivity extends MyBaseActivity {
                             setLand(str_text_user, srt_text_pass);
                         }
                     });
-
+                    builder.setCancelable(false);
                     builder.create().show();
                     ;
                 } else {
