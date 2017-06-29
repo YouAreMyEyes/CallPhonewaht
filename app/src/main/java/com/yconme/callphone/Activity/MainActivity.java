@@ -168,7 +168,7 @@ public class MainActivity extends MyBaseActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
-                            SharedPreferencesUtils.getboolean("isboolean", true);
+                            SharedPreferencesUtils.putboolean("isboolean", true);
                             setLand(str_text_user, srt_text_pass);
                         }
                     });
@@ -176,7 +176,7 @@ public class MainActivity extends MyBaseActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            SharedPreferencesUtils.getboolean("isboolean", true);
+                            SharedPreferencesUtils.putboolean("isboolean", true);
                             setLand(str_text_user, srt_text_pass);
                         }
                     });

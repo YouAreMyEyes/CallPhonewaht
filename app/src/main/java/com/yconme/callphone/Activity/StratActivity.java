@@ -86,7 +86,6 @@ public class StratActivity extends MyBaseActivity {
 
     @Override
     public void setbase() {
-//        strings.add("http://192.168.1.252/storage/tapes/1/2/1Cb0OG3MhECCqhsONEDgiKmtkoFncUSYgtYc0xQA.3gp");
         gson = new Gson();
         okHttpClient = new OkHttpClient();
         startAdapter = new StartAdapter(StratActivity.this);
