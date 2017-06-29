@@ -29,7 +29,6 @@ public class NewPhoneListAdapter extends BaseAdapter {
     private Activity mContent;
     private PhoneBean phoneBean;
     private List<String> basis = new ArrayList<>();
-    private PhoneListIsaboolean phoneListIsaboolean;
     private List<PhoneListIsaboolean> listIsabooleen = new ArrayList<>();
     private String s;
 
@@ -48,9 +47,7 @@ public class NewPhoneListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void setPhoneListIsaboolean(PhoneListIsaboolean phoneListIsaboolean) {
-        this.phoneListIsaboolean = phoneListIsaboolean;
-    }
+
 
     @Override
     public int getCount() {

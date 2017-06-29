@@ -110,12 +110,9 @@ public class PhoneListActivity extends MyBaseActivity {
     private ImageView iv_phonelist_details;
     private String total;
     private Date curDate;
-    private Date nowDate;
     private boolean upboolean = false;
     private boolean isboolean = false;
     private Handler getHandler = new Handler();
-    private List<PhoneListIsaboolean> phoneListIsabooleen = new ArrayList<>();
-    private PhoneListIsaboolean phoneListIsaboolean = new PhoneListIsaboolean();
     //获取单个号码 进行拨打电话功能
     private Handler CallHandler = new Handler() {
 
@@ -145,7 +142,6 @@ public class PhoneListActivity extends MyBaseActivity {
                         //***************************************************
                         newPhoneListAdapter.setPhoneBean(phoneBean1);
                         //这个有影响吗？
-                        newPhoneListAdapter.setPhoneListIsaboolean(phoneListIsaboolean);
                         listView.setAdapter(newPhoneListAdapter);
                         //***************************************************
 
