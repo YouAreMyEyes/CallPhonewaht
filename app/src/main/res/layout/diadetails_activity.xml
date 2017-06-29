@@ -13,7 +13,7 @@
             android:id="@+id/diadetails_iv_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@mipmap/perfect_back" />
+            android:src="@mipmap/new_back" />
 
         <TextView
             android:layout_width="wrap_content"

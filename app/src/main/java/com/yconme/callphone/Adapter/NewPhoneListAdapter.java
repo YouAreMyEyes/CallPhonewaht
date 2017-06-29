@@ -48,7 +48,6 @@ public class NewPhoneListAdapter extends BaseAdapter {
     }
 
 
-
     @Override
     public int getCount() {
         return basis.size();
@@ -77,9 +76,6 @@ public class NewPhoneListAdapter extends BaseAdapter {
         } else {
             viewHoler = (NewPhoneList_ViewHoler) convertView.getTag();
         }
-        //这个s
-        PhoneListIsaboolean phoneListIsaboolean = listIsabooleen.get(position);
-        phoneListIsaboolean.setPostion(position);
         try {
             s = basis.get(position);
         } catch (Exception e) {
@@ -89,7 +85,6 @@ public class NewPhoneListAdapter extends BaseAdapter {
         viewHoler.textView_phone_list_rela_tv.setText(s);
         viewHoler.checkBox.setChecked(listIsabooleen.get(position).isdel());
         viewHoler.checkBox.setTag(position);
-//        viewHoler.checkBox.setOnCheckedChangeListener(this);
         return convertView;
     }
 
@@ -97,12 +92,6 @@ public class NewPhoneListAdapter extends BaseAdapter {
     public List<PhoneListIsaboolean> getlistIsabooleen() {
         return listIsabooleen;
     }
-
-//    @Override
-//    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//        int tag = (int) compoundButton.getTag();
-//        listIsabooleen.get(tag).setIsdel(b);
-//    }
 
 
     public static class NewPhoneList_ViewHoler {

@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <ImageView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -22,7 +23,7 @@
             android:layout_centerInParent="true"
             android:text="恭喜今天任务完成"
             android:textColor="#2988F6"
-            android:textSize="26sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -36,6 +37,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@mipmap/comleted_upload" />
+            android:src="@mipmap/new_up_lu" />
     </RelativeLayout>
 </LinearLayout>

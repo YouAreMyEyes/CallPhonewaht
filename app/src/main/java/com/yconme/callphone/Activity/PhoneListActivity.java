@@ -548,6 +548,8 @@ public class PhoneListActivity extends MyBaseActivity {
                                 @Override
                                 public void run() {
                                     ToastUtils.showToast(PhoneListActivity.this, message);
+                                    startActivity(new Intent(PhoneListActivity.this, CompletedActivity.class));
+                                    finish();
                                 }
                             });
                         }
