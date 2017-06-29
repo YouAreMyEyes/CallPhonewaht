@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/new_start_bg"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/new_phone_title_bg"
+                    android:padding="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/phonelist_tv_dialed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="今天已拨打:10 "
+                            android:textColor="#fff"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/phonelist_tv_success"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="成功:6个 "
+                            android:textColor="#fff"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:id="@+id/phonelist_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@mipmap/new_phone_titile_details" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/phonelist_phonenumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text=""
+                            android:textColor="#fff"
+                            android:textSize="36sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
+
+                        <TextView
+                            android:id="@+id/phonelist_phonename"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:text=""
+                            android:textColor="#F5F5F6"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="6"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
+                    android:paddingTop="30dp">
+
+
+                    <!--<LinearLayout-->
+                    <!--android:id="@+id/phonelist_linear"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:orientation="vertical">-->
+
+                    <com.yconme.callphone.Utils.MyLlistview
+                        android:id="@+id/phonelist_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:divider="#00000000"
+                        android:dividerHeight="0dip"
+                        android:scrollbars="none"></com.yconme.callphone.Utils.MyLlistview>
+                    <!--</LinearLayout>-->
+
+
+                    <LinearLayout
+
+                        android:id="@+id/phone_linear_vg"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_below="@+id/scrollview"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@mipmap/phonelist_taocan_bg">
+
+                        <EditText
+                            android:id="@+id/phone_edit_remarks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="#CDCDCF"
+                            android:gravity="top"
+                            android:hint="请填写内容显示您的需要的套餐的详情"
+                            android:maxLines="4"
+                            android:minLines="4"
+                            android:padding="2dp"
+                            android:textColor="#fff"
+                            android:textColorHighlight="#fff"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
+
+                        <LinearLayout
+                            android:id="@+id/phonelist_btn_missed"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="6dp"
+                            android:layout_weight="1"
+                            android:background="@mipmap/new_phone_status_one"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/phonelist_btn_missed_dian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="2dp"
+                                android:src="@mipmap/new_hs" />
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="未接"
+                                android:textColor="#33334B" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/phonelist_btn_hangup"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="2dp"
+                            android:layout_weight="1"
+                            android:background="@mipmap/new_phone_status_two"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/phonelist_btn_hangup_dian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="2dp"
+                                android:src="@mipmap/new_hs" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="挂断"
+                                android:textColor="#33334B" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/phonelist_btn_success"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="2dp"
+                            android:layout_weight="1"
+                            android:background="@mipmap/new_phone_status_two"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/phonelist_btn_success_dian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="2dp"
+                                android:src="@mipmap/new_hs" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="成功"
+                                android:textColor="#33334B" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/phonelist_linear_fail"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_weight="1"
+                            android:background="@mipmap/new_phone_status_threed"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/phonelist_btn_fall_dian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="2dp"
+                                android:src="@mipmap/new_hs" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="失败"
+                                android:textColor="#33334B" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/phonelist_iv_suspend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@mipmap/new_phone_suspend" />
+
+                    <ImageView
+                        android:id="@+id/phonelist_iv_continue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@mipmap/new_phone_continue" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

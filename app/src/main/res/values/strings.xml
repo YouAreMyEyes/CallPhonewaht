@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">CallPhonewaht</string>
+    <string name="tag_hint">Tag为大小写字母，数字，下划线,中文， 多个用以逗号分隔</string>
+    <string name="alias_hint">Alias为大小写字母，数字，下划线</string>
+    <string name="style_hint">style为数字</string>
+    <string name="error_style_empty">style不能为空</string>
+    <string name="error_alias_empty">alias不能为空</string>
+    <string name="error_tag_empty">tag不能为空</string>
+    <string name="hello">Hello World, JPush!</string>
+    <string name="error_tag_gs_empty">格式不对</string>
+    <string name="error_network">网络连接异常,初始化失败 请检查网络！</string>
+    <string name="logining">程序在后台执行, 请查看日志！</string>
+    <string name="setting_su">设置成功</string>
+
+
+    <string name="action_about">About</string>
+    <string name="introduction">This is a sample app with an imaginary functionality of saving some files into external storage, so the WRITE_EXTERNAL_STORAGE permission is required.\n\nClick \"SAVE FILE\" to start experimenting with runtime permissions!</string>
+    <string name="save_file">Save file</string>
+    <string name="save_file_permission_request_message">App needs permission to save files. Please click \"ALLOW\" in the upcoming system dialog.</string>
+    <string name="save_file_permission_permanently_denied_message">App needs permission to save files. Please grant the \"Storage\" permission in system settings.</string>
+    <string name="open_settings">Open settings</string>
+    <string name="save_file_permission_denied">Save failed: Insufficient permissions</string>
+    <string name="save_file_show_time">You can now save the file!</string>
+
+    <string name="about_title">About</string>
+    <string name="about_name">EffortlessPermissions</string>
+    <string name="about_version_format">Version %1$s</string>
+    <string name="about_credit">Zhang Hai 2017</string>
+    <string name="about_github"><a href="https://github.com/DreaminginCodeZH/EffortlessPermissions">View on GitHub</a></string>
+</resources>
