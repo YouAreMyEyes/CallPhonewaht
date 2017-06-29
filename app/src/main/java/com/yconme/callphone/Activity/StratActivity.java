@@ -109,19 +109,25 @@ public class StratActivity extends MyBaseActivity {
                 String string = response.body().string();
                 final StartBean startBean = gson.fromJson(string, StartBean.class);
                 data = startBean.getData();
-                if (data.isEmpty()) {
-                    tv_start_activity_tv_vis.setVisibility(View.VISIBLE);
-                    listView.setVisibility(View.GONE);
-                } else {
-                    listView.setVisibility(View.VISIBLE);
-                    tv_start_activity_tv_vis.setVisibility(View.GONE);
-                    for (int i = 0; i < data.size(); i++) {
-                        StartBean.data data1 = data.get(i);
-                        String url = data1.getUrl();
-                        strings.add(url);
-                    }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (data.isEmpty()) {
+                            tv_start_activity_tv_vis.setVisibility(View.VISIBLE);
+                            listView.setVisibility(View.GONE);
+                        } else {
+                            listView.setVisibility(View.VISIBLE);
+                            tv_start_activity_tv_vis.setVisibility(View.GONE);
+                            for (int i = 0; i < data.size(); i++) {
+                                StartBean.data data1 = data.get(i);
+                                String url = data1.getUrl();
+                                strings.add(url);
+                            }
 
-                }
+                        }
+                    }
+                });
+
 
                 handler.post(new Runnable() {
                     @Override

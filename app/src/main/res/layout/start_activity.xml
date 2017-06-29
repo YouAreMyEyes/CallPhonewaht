@@ -20,8 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="暂无数据"
+            android:text="没有录音!"
             android:textColor="#fff"
+            android:visibility="gone"
             android:textSize="20sp" />
 
         <ListView
@@ -29,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            android:visibility="gone"></ListView>
+          ></ListView>
 
 
     </LinearLayout>

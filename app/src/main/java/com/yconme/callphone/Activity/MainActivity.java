@@ -114,6 +114,8 @@ public class MainActivity extends MyBaseActivity {
 
     @Override
     public void setbase() {
+        SharedPreferencesUtils.getboolean("isboolean", false);
+
         //设置光标位置为最后一位
         text_pass.addTextChangedListener(new TextWatcher() {
             @Override
@@ -156,6 +158,7 @@ public class MainActivity extends MyBaseActivity {
             public void onClick(View view) {
                 final String str_text_user = text_user.getText().toString().trim();
                 final String srt_text_pass = text_pass.getText().toString().trim();
+                boolean isboolean = SharedPreferencesUtils.getboolean("isboolean", false);
                 if (isboolean == false) {
                     builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle("注意");
@@ -165,7 +168,7 @@ public class MainActivity extends MyBaseActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
-                            isboolean = true;
+                            SharedPreferencesUtils.getboolean("isboolean", true);
                             setLand(str_text_user, srt_text_pass);
                         }
                     });
@@ -173,7 +176,7 @@ public class MainActivity extends MyBaseActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            isboolean = true;
+                            SharedPreferencesUtils.getboolean("isboolean", true);
                             setLand(str_text_user, srt_text_pass);
                         }
                     });
