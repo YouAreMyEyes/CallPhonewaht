@@ -1,42 +1,42 @@
 [
     {
-        "merged": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
-        "source": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\anim\\abc_slide_out_bottom.xml"
+        "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\anim\\abc_slide_in_bottom.xml"
     },
     {
-        "merged": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
-        "source": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\anim\\abc_fade_out.xml"
+        "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\anim\\abc_fade_out.xml"
     },
     {
-        "merged": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
-        "source": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\anim\\abc_slide_in_top.xml"
+        "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
     },
     {
-        "merged": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
-        "source": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+        "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
-        "merged": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
-        "source": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\anim\\abc_slide_in_bottom.xml"
+        "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\anim\\abc_popup_exit.xml"
     },
     {
-        "merged": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
-        "source": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+        "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\anim\\abc_slide_out_top.xml"
     },
     {
-        "merged": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
-        "source": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\anim\\abc_fade_in.xml"
+        "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\anim\\abc_fade_in.xml"
     },
     {
-        "merged": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
-        "source": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\anim\\abc_slide_out_top.xml"
+        "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\anim\\abc_slide_in_top.xml"
     },
     {
-        "merged": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
-        "source": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\anim\\abc_popup_exit.xml"
+        "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\anim\\abc_popup_enter.xml"
     },
     {
-        "merged": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
-        "source": "F:\\Android_Demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\anim\\abc_popup_enter.xml"
+        "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
     }
 ]
