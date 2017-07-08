@@ -159,6 +159,7 @@
         <activity android:name=".Activity.CompletedActivity"></activity>
         <activity android:name=".Activity.PerfectActivity"></activity>
         <activity android:name=".Activity.DialDetailsActivity"></activity>
+        <activity android:name=".Activity.CallPhoneActivity"></activity>
 
     </application>
     <!-- Required -->

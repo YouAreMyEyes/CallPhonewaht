@@ -238,15 +238,21 @@ public class PhoneListActivity extends MyBaseActivity {
                         ToastUtils.showToast(content, "为空");
                     }
 
-                    newDialog.show();
-                    Button view_button = newDialog.getView_button();
-                    view_button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            newDialog.dismiss();
-                            rejectCall();
-                        }
-                    });
+
+                    try {
+                        newDialog.show();
+                        Button view_button = newDialog.getView_button();
+                        view_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                newDialog.dismiss();
+                                rejectCall();
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
 
                     break;
             }
@@ -267,7 +273,7 @@ public class PhoneListActivity extends MyBaseActivity {
     @Override
     public void init() {
         content = PhoneListActivity.this;
-        newDialog = new NewDialog(content);
+        newDialog = new NewDialog(PhoneListActivity.this);
         gson = new Gson();
         //请求服务器电话列表
         okHttpClient = new OkHttpClient();
@@ -319,10 +325,6 @@ public class PhoneListActivity extends MyBaseActivity {
         taoken = SharedPreferencesUtils.getstring("taoken", "");
         //获取电话数据
         againData(taoken);
-        /**
-         * dialog的button
-         */
-
         /**
          * listview 实现不失去焦点的单选
          */
@@ -482,11 +484,10 @@ public class PhoneListActivity extends MyBaseActivity {
                     submitDate(taoken, valueOf(id1), s1, itemTexit, srt_remarks, s);
                 }
                 getboolean = false;
-
                 aBoolean = false;
                 upboolean = false;
-//                CallHandler.sendEmptyMessage(1);
-                againData(taoken);
+                CallHandler.sendEmptyMessage(1);
+//                againData(taoken);
 
 //                }
 
@@ -507,7 +508,7 @@ public class PhoneListActivity extends MyBaseActivity {
      *
      * @param phoneNumber
      */
-    public void callphonee(String phoneNumber) {
+    public void callphonee(final String phoneNumber) {
 
 
         Intent intent = new Intent(Intent.ACTION_CALL);
@@ -546,7 +547,7 @@ public class PhoneListActivity extends MyBaseActivity {
                 @Override
                 public void onResponse(final Call call, Response response) throws IOException {
                     String string = response.body().string();
-//                    Log.e(TAG, "通话记录: " + string);
+                    Log.e(TAG, "通话记录: " + string);
                     try {
                         JSONObject jsonObject = new JSONObject(string);
                         String status1 = jsonObject.getString("status");
@@ -559,9 +560,8 @@ public class PhoneListActivity extends MyBaseActivity {
 //                                    if (statusPhone != true) {
                                     // 得到sd卡内路径
                                     String imagePath = Environment.getExternalStorageDirectory().toString() + "/data";
-                                    // 得到该路径文件夹下所有的文件
+
                                     String mob_key = SharedPreferencesUtils.getstring("mob_key", "");
-//                                    Log.e(TAG, "mobile: " + mob_key);
 
                                     if (mob_key != null) {
                                         apkFile = new File(imagePath, "/" + mob_key + ".MP3");

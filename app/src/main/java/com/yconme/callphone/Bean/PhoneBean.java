@@ -8,25 +8,10 @@ import java.util.List;
 
 public class PhoneBean {
 
-    /**
-     * status : 1
-     * message : 成功获取手机号信息。
-     * taoken : 5b0faf40-5562-11e7-b1d6-1df865da4962
-     * data : {"id":46,"mobile":"13852455468","desc":"ARPU:20元-50元","area":"青岛","_package":{"basis":["30元","60元","100元"],"other":["30元1G流量包月","50元2G流量包月"]},"is_memo":1,"status":2}
-     */
 
     private String status;
     private String message;
     private String taoken;
-    /**
-     * id : 46
-     * mobile : 13852455468
-     * desc : ARPU:20元-50元
-     * area : 青岛
-     * _package : {"basis":["30元","60元","100元"],"other":["30元1G流量包月","50元2G流量包月"]}
-     * is_memo : 1
-     * status : 2
-     */
 
     private DataEntity data;
 

@@ -11,32 +11,10 @@ import java.util.List;
 public class DialDetailslistBean {
 
 
-    /**
-     * status : 1
-     * message : 成功返回统计结果。
-     * taoken : 58d66ec0-589c-11e7-832e-09f7cade815b
-     * data : [{"id":11,"tel_id":11,"merchant_id":1,"employee_id":2,"mobile":"15954811111","package":"100元","is_memo":null,"memo":null,"status":2,"deleted":0,"url":null,"time":0,"created_at":"2017-06-24 10:43:26","updated_at":"2017-06-24 10:43:26"},{"id":12,"tel_id":12,"merchant_id":1,"employee_id":2,"mobile":"17685832999","package":"30元","is_memo":null,"memo":null,"status":2,"deleted":0,"url":null,"time":0,"created_at":"2017-06-24 10:43:26","updated_at":"2017-06-24 10:43:26"},{"id":13,"tel_id":13,"merchant_id":1,"employee_id":2,"mobile":"17685832999","package":"60元","is_memo":null,"memo":null,"status":2,"deleted":0,"url":null,"time":0,"created_at":"2017-06-24 10:43:26","updated_at":"2017-06-24 10:43:26"},{"id":14,"tel_id":14,"merchant_id":1,"employee_id":2,"mobile":"17685832999","package":"100元","is_memo":null,"memo":null,"status":2,"deleted":0,"url":null,"time":0,"created_at":"2017-06-24 10:43:26","updated_at":"2017-06-24 10:43:26"},{"id":15,"tel_id":15,"merchant_id":1,"employee_id":2,"mobile":"15954811111","package":"100元","is_memo":null,"memo":null,"status":2,"deleted":0,"url":null,"time":0,"created_at":"2017-06-24 10:43:26","updated_at":"2017-06-24 10:43:26"},{"id":16,"tel_id":16,"merchant_id":1,"employee_id":2,"mobile":"15864255666","package":"30元","is_memo":null,"memo":null,"status":2,"deleted":0,"url":null,"time":0,"created_at":"2017-06-24 10:43:26","updated_at":"2017-06-24 10:43:26"},{"id":17,"tel_id":17,"merchant_id":1,"employee_id":2,"mobile":"15864255666","package":"30元","is_memo":null,"memo":null,"status":2,"deleted":0,"url":null,"time":0,"created_at":"2017-06-24 10:43:26","updated_at":"2017-06-24 10:43:26"},{"id":18,"tel_id":18,"merchant_id":1,"employee_id":2,"mobile":"15864255666","package":"60元","is_memo":null,"memo":null,"status":2,"deleted":0,"url":null,"time":0,"created_at":"2017-06-24 10:43:26","updated_at":"2017-06-24 10:43:26"},{"id":19,"tel_id":19,"merchant_id":1,"employee_id":2,"mobile":"17685832999","package":"100元","is_memo":null,"memo":null,"status":2,"deleted":0,"url":null,"time":0,"created_at":"2017-06-24 10:43:26","updated_at":"2017-06-24 10:43:26"},{"id":20,"tel_id":20,"merchant_id":1,"employee_id":2,"mobile":"15954811111","package":"60元","is_memo":null,"memo":null,"status":2,"deleted":0,"url":null,"time":0,"created_at":"2017-06-24 10:43:26","updated_at":"2017-06-24 10:43:26"}]
-     */
 
     private String status;
     private String message;
     private String taoken;
-    /**
-     * id : 11
-     * tel_id : 11
-     * merchant_id : 1
-     * employee_id : 2
-     * mobile : 15954811111
-     * package : 100元
-     * is_memo : null
-     * memo : null
-     * status : 2
-     * deleted : 0
-     * url : null
-     * time : 0
-     * created_at : 2017-06-24 10:43:26
-     * updated_at : 2017-06-24 10:43:26
-     */
 
     private List<DataEntity> data;
 

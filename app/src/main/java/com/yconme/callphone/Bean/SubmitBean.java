@@ -8,34 +8,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class SubmitBean {
 
-    /**
-     * status : 1
-     * message : 文件成功上传，德新你行！
-     * taoken : bb1552a0-559e-11e7-95dd-970c111a70a7
-     * data : {"id":36,"tel_id":176,"merchant_id":1,"employee_id":2,"mobile":"18353284442","area":"青岛","package":"100元","is_memo":1,"memo":"999","status":1,"deleted":0,"url":"public/tapes/1/2/ln5sHRMylFnFjGfAV45S1YKazYulARp4UNPs9EH8.3gp","created_at":"2017-06-20 18:01:05","updated_at":"2017-06-20 18:01:05","absurl":"http://192.168.1.252/storage/tapes/1/2/ln5sHRMylFnFjGfAV45S1YKazYulARp4UNPs9EH8.3gp","filetype":null}
-     */
 
     private String status;
     private String message;
     private String taoken;
-    /**
-     * id : 36
-     * tel_id : 176
-     * merchant_id : 1
-     * employee_id : 2
-     * mobile : 18353284442
-     * area : 青岛
-     * package : 100元
-     * is_memo : 1
-     * memo : 999
-     * status : 1
-     * deleted : 0
-     * url : public/tapes/1/2/ln5sHRMylFnFjGfAV45S1YKazYulARp4UNPs9EH8.3gp
-     * created_at : 2017-06-20 18:01:05
-     * updated_at : 2017-06-20 18:01:05
-     * absurl : http://192.168.1.252/storage/tapes/1/2/ln5sHRMylFnFjGfAV45S1YKazYulARp4UNPs9EH8.3gp
-     * filetype : null
-     */
+
 
     private DataEntity data;
 

@@ -25,5 +25,4 @@ public interface InterfaceManagement {
         String Listdetails = "http://call.ycome.com/api/tel/records";
     }
 
-
 }

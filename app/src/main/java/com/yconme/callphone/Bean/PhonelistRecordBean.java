@@ -8,20 +8,12 @@ import java.util.List;
 
 public class PhonelistRecordBean {
 
-    /**
-     * status : 1
-     * message : 成功返回统计结果。
-     * taoken : b5e30b20-5890-11e7-ba4c-a974f10cb328
-     * data : {"total":379,"records":[{"status":-2,"count":4},{"status":1,"count":9},{"status":2,"count":366}]}
-     */
+
 
     private String status;
     private String message;
     private String taoken;
-    /**
-     * total : 379
-     * records : [{"status":-2,"count":4},{"status":1,"count":9},{"status":2,"count":366}]
-     */
+
 
     private DataEntity data;
 
