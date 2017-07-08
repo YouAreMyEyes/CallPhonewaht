@@ -107,23 +107,31 @@ public class StratActivity extends MyBaseActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String string = response.body().string();
                 final StartBean startBean = gson.fromJson(string, StartBean.class);
-                data = startBean.getData();
+                try {
+                    data = startBean.getData();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (data.isEmpty()) {
-                            tv_start_activity_tv_vis.setVisibility(View.VISIBLE);
-                            listView.setVisibility(View.GONE);
-                        } else {
-                            listView.setVisibility(View.VISIBLE);
-                            tv_start_activity_tv_vis.setVisibility(View.GONE);
-                            for (int i = 0; i < data.size(); i++) {
-                                StartBean.data data1 = data.get(i);
-                                String url = data1.getUrl();
-                                strings.add(url);
-                            }
+                        if (data!=null){
+                            if (data.isEmpty()) {
+                                tv_start_activity_tv_vis.setVisibility(View.VISIBLE);
+                                listView.setVisibility(View.GONE);
+                            } else {
+                                listView.setVisibility(View.VISIBLE);
+                                tv_start_activity_tv_vis.setVisibility(View.GONE);
+                                for (int i = 0; i < data.size(); i++) {
+                                    StartBean.data data1 = data.get(i);
+                                    String url = data1.getUrl();
+                                    strings.add(url);
+                                }
 
+                            }
                         }
+
                     }
                 });
 
@@ -131,16 +139,21 @@ public class StratActivity extends MyBaseActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        String message = startBean.getMessage();
-                        ToastUtils.showToast(StratActivity.this, message);
-                        text_start_tv_total.setText("总：" + strings.size());
-                        listView.setAdapter(startAdapter);
-                        startAdapter.setStartBean(startBean);
+                        try {
+                            String message = startBean.getMessage();
+                            ToastUtils.showToast(StratActivity.this, message);
+                            text_start_tv_total.setText("总：" + strings.size());
+                            listView.setAdapter(startAdapter);
+                            startAdapter.setStartBean(startBean);
 //                        int size = strings.size();
 //                        text_start_tv_total.setText("总共语音  " + size + "条");
 //                        text_start_tv_current.setText("当前播放  " + i + "条");
 //                        Log.e("TAG", "i: " + 1);
 //                        songplay();
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                     }
                 });
             }

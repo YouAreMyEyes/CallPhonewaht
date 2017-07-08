@@ -1,20 +1,25 @@
 package com.yconme.callphone.Activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.internal.telephony.ITelephony;
 import com.google.gson.Gson;
 import com.yconme.callphone.Adapter.NewPhoneListAdapter;
 import com.yconme.callphone.Bean.PhoneBean;
@@ -33,6 +38,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,8 +63,9 @@ import static java.lang.String.valueOf;
 
 public class PhoneListActivity extends MyBaseActivity {
     private static final String TAG = "Phone";
-    private MediaRecorder mRecorder = null;
-    private String path;
+    private static MediaRecorder mRecorder = null;
+    private static String path;
+    private Activity activity = PhoneListActivity.this;
     private LinearLayout view_phonelist_btn_success;
     private MyLlistview listView;
     private Gson gson;
@@ -77,7 +84,7 @@ public class PhoneListActivity extends MyBaseActivity {
     private List<String> basis;
     private int id1;
     private HashMap<String, Object> stringObjectHashMap;
-    private File file_path;
+    private static File file_path;
     private static final MediaType STREAM = MediaType.parse("multipart/form-data");
     private EditText text_remarks;
     //继续 暂停
@@ -87,7 +94,7 @@ public class PhoneListActivity extends MyBaseActivity {
     private NewPhoneListAdapter newPhoneListAdapter = new NewPhoneListAdapter(PhoneListActivity.this);
     //成功上传录音  。的判断 为false上传
     private boolean statusPhone = false;
-    private boolean orBoolen = false;
+    private static boolean orBoolen = false;
     private boolean getboolean = false;
     private LinearLayout view_phonelist_linear_fail;
     private ImageView iv_phonelist_btn_missed_dian;
@@ -104,8 +111,13 @@ public class PhoneListActivity extends MyBaseActivity {
     private ImageView iv_phonelist_details;
     private String total;
     private Date curDate;
+    private static Context content;
     private boolean upboolean = false;
     private boolean isboolean = false;
+    private String againstring;
+    private int postition;
+    private String mobile;
+    private static NewDialog newDialog;
     private Handler getHandler = new Handler();
     //获取单个号码 进行拨打电话功能
     private Handler CallHandler = new Handler() {
@@ -119,7 +131,6 @@ public class PhoneListActivity extends MyBaseActivity {
                     final String message = phoneBean1.getMessage();
                     if (status.equals("1")) {
                         data = phoneBean1.getData();
-
                         mobile = data.getMobile();
                         SharedPreferencesUtils.putstring("mob_key", mobile);
                         //ID
@@ -135,7 +146,6 @@ public class PhoneListActivity extends MyBaseActivity {
                         basis1 = aPackage.getBasis();
                         //***************************************************
                         newPhoneListAdapter.setPhoneBean(phoneBean1);
-                        //这个有影响吗？
                         listView.setAdapter(newPhoneListAdapter);
                         //***************************************************
 
@@ -175,13 +185,14 @@ public class PhoneListActivity extends MyBaseActivity {
         }
     };
     //开始录音和结束录音
-    public Handler handler = new Handler() {
+    static public Handler handler = new Handler() {
+
         @Override
         public void handleMessage(Message msg) {
+
             switch (msg.what) {
                 case 1:
                     String mob_key = SharedPreferencesUtils.getstring("mob_key", "");
-//                    Log.e(TAG, "mob_key: " + mob_key);
                     if (mob_key != null) {
                         File FileName = Environment.getExternalStorageDirectory();
                         path = FileName.getPath() + "/data";
@@ -224,21 +235,29 @@ public class PhoneListActivity extends MyBaseActivity {
                         orBoolen = false;
 
                     } else {
-                        ToastUtils.showToast(PhoneListActivity.this, "为空");
+                        ToastUtils.showToast(content, "为空");
                     }
 
+                    newDialog.show();
+                    Button view_button = newDialog.getView_button();
+                    view_button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            newDialog.dismiss();
+                            rejectCall();
+                        }
+                    });
+
                     break;
-
             }
-
-
         }
     };
-    private String againstring;
-    private int postition;
-    private String mobile;
 
-    //加载视图
+    /**
+     * 加载视图
+     *
+     * @return
+     */
     @Override
     public int setview() {
         return R.layout.new_phonelist_activity;
@@ -247,6 +266,11 @@ public class PhoneListActivity extends MyBaseActivity {
     //初始化数据
     @Override
     public void init() {
+        content = PhoneListActivity.this;
+        newDialog = new NewDialog(content);
+        gson = new Gson();
+        //请求服务器电话列表
+        okHttpClient = new OkHttpClient();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         text_phonelist_phonenumber = (TextView) findViewById(R.id.phonelist_phonenumber);
         text_phonelist_phonename = (TextView) findViewById(R.id.phonelist_phonename);
@@ -280,6 +304,9 @@ public class PhoneListActivity extends MyBaseActivity {
         //详情
         iv_phonelist_details = (ImageView) findViewById(R.id.phonelist_details);
 
+        tv_phonelist_tv_dialed.setText("今天已拨打:" + "个");
+
+        tv_phonelist_tv_success.setText("成功" + "个");
 
     }
 
@@ -289,16 +316,16 @@ public class PhoneListActivity extends MyBaseActivity {
     @Override
     public void setbase() {
 
-
-        gson = new Gson();
-        //请求服务器电话列表
-        okHttpClient = new OkHttpClient();
         taoken = SharedPreferencesUtils.getstring("taoken", "");
         //获取电话数据
         againData(taoken);
-        tv_phonelist_tv_dialed.setText("今天已拨打:" + "个");
-        tv_phonelist_tv_success.setText("成功" + "个");
-        //111 hao le 老大-
+        /**
+         * dialog的button
+         */
+
+        /**
+         * listview 实现不失去焦点的单选
+         */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -318,7 +345,9 @@ public class PhoneListActivity extends MyBaseActivity {
             }
         });
 
-
+        /**
+         * 跳转电话详情
+         */
         iv_phonelist_details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -326,7 +355,9 @@ public class PhoneListActivity extends MyBaseActivity {
             }
         });
 
-        //成功的按钮
+        /**
+         * 成功
+         */
         view_phonelist_btn_success.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -337,7 +368,9 @@ public class PhoneListActivity extends MyBaseActivity {
                 iv_phonelist_btn_fall_dian.setImageResource(R.mipmap.new_hs);
             }
         });
-        //未接
+        /***
+         * 未接
+         */
         view_phonelist_btn_missed.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -351,7 +384,9 @@ public class PhoneListActivity extends MyBaseActivity {
 
             }
         });
-        //挂断
+        /**
+         * 挂断
+         */
         view_phonelist_btn_hangup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -365,7 +400,9 @@ public class PhoneListActivity extends MyBaseActivity {
 
             }
         });
-        //失败
+        /**
+         * 失败
+         */
         view_phonelist_linear_fail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -377,7 +414,9 @@ public class PhoneListActivity extends MyBaseActivity {
                 iv_phonelist_btn_fall_dian.setImageResource(R.mipmap.new_gree);
             }
         });
-        //暂停
+        /**
+         * 暂停
+         */
         iv_phonelist_iv_suspend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -408,13 +447,13 @@ public class PhoneListActivity extends MyBaseActivity {
                 }
                 getboolean = true;
                 isboolean = true;
-                againData(taoken);
-
                 ToastUtils.showToast(PhoneListActivity.this, "已暂停");
 
             }
         });
-        //继续
+        /**
+         * 继续
+         */
         iv_phonelist_iv_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -446,8 +485,8 @@ public class PhoneListActivity extends MyBaseActivity {
 
                 aBoolean = false;
                 upboolean = false;
-                CallHandler.sendEmptyMessage(1);
-//                againData(taoken);
+//                CallHandler.sendEmptyMessage(1);
+                againData(taoken);
 
 //                }
 
@@ -462,18 +501,22 @@ public class PhoneListActivity extends MyBaseActivity {
         return null;
     }
 
-    //拨打电话的方法
+
+    /**
+     * 拨打电话
+     *
+     * @param phoneNumber
+     */
     public void callphonee(String phoneNumber) {
-        Uri uri = getCallUri(phoneNumber); // 将所拨号码进行格式化
-        Intent intentd = new Intent();
-        intentd.setAction(Intent.ACTION_CALL);
-        intentd.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intentd.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-        intentd.setData(uri);
-        startActivity(intentd);
+
+
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:" + phoneNumber);
+        intent.setData(data);
+        startActivity(intent);
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         curDate = new Date(System.currentTimeMillis());
-
     }
 
     /**
@@ -528,11 +571,6 @@ public class PhoneListActivity extends MyBaseActivity {
                                         ToastUtils.showToast(PhoneListActivity.this, "路径为空");
                                     }
 
-//                                    } else {
-//                                        //当上传结束后，回调一次请求电话列表，然后继续拨打电话
-//                                        againData(taoken);
-//                                    }
-
 
                                 }
                             });
@@ -573,7 +611,7 @@ public class PhoneListActivity extends MyBaseActivity {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e(TAG, "onFailure: " + e.toString());
+                Log.e("onFailure", "onFailure: " + e.toString());
 
             }
 
@@ -616,7 +654,7 @@ public class PhoneListActivity extends MyBaseActivity {
         call1.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.i(TAG, "提交通话录音错误: " + e.toString());
+                Log.i("Submitaudio", "提交通话录音错误: " + e.toString());
 
             }
 
@@ -629,14 +667,14 @@ public class PhoneListActivity extends MyBaseActivity {
                 final String message = submitBean.getMessage();
                 if (status.equals("1")) {
                     basis1.clear();
-//                    statusPhone = true;
                     upboolean = true;
                     if (ztboolean == true) {
                         mobile = null;
-                        //当上传结束后，回调一次请求电话列表，然后继续拨打电话
+                        /**
+                         * 当上传结束后，回调一次请求电话列表，然后继续拨打电话
+                         */
                         againData(taoken);
                     }
-
 
                 } else if (status.equals("-1")) {
 
@@ -700,12 +738,6 @@ public class PhoneListActivity extends MyBaseActivity {
 
     }
 
-    public static Uri getCallUri(String number) {
-        if (number != null && (number.contains("@") || number.contains("%40"))) {
-            return Uri.fromParts("sip", number, null);
-        }
-        return Uri.fromParts("tel", number, null);
-    }
 
     @Override
     protected void onResume() {
@@ -716,7 +748,7 @@ public class PhoneListActivity extends MyBaseActivity {
         }
     }
 
-    public void stop() {
+    public static void stop() {
         if (mRecorder != null) {
             try {
                 mRecorder.stop();
@@ -728,4 +760,25 @@ public class PhoneListActivity extends MyBaseActivity {
             mRecorder = null;
         }
     }
+
+
+    /**
+     * 停止打电话
+     */
+    public static void rejectCall() {
+        try {
+            Method method = Class.forName("android.os.ServiceManager")
+                    .getMethod("getService", String.class);
+            IBinder binder = (IBinder) method.invoke(null, new Object[]{Context.TELEPHONY_SERVICE});
+            ITelephony telephony = ITelephony.Stub.asInterface(binder);
+            telephony.endCall();
+        } catch (NoSuchMethodException e) {
+            Log.d("TAG", "", e);
+        } catch (ClassNotFoundException e) {
+            Log.d("TAG", "", e);
+        } catch (Exception e) {
+        }
+    }
+
+
 }

@@ -13,7 +13,7 @@ import android.util.Log;
  */
 
 public class PhoneStatReceiver extends BroadcastReceiver {
-    private static final String TAG = "TAG";
+    private static final String TAG = "PhoneReceiver";
     private static boolean incomingFlag = false;
 
     @Override
@@ -22,10 +22,8 @@ public class PhoneStatReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(Intent.ACTION_NEW_OUTGOING_CALL)) {
             incomingFlag = false;
             final String phoneNum = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
-            Log.e("PhoneReceiver", "phoneNum: " + phoneNum);
-            PhoneListActivity phoneListActivity = new PhoneListActivity();
-            phoneListActivity.handler.sendEmptyMessage(1);
-
+            Log.e(TAG, "phoneNum: " + phoneNum);
+            PhoneListActivity.handler.sendEmptyMessage(1);
 
         } else {
             TelephonyManager tm = (TelephonyManager) context.getSystemService(Service.TELEPHONY_SERVICE);
@@ -41,18 +39,18 @@ public class PhoneStatReceiver extends BroadcastReceiver {
                 //电话等待接听
                 case TelephonyManager.CALL_STATE_RINGING:
                     incomingFlag = true;
-                    Log.e("PhoneReceiver", "CALL IN RINGING :" + incomingNumber);
+//                    Log.e("PhoneReceiver", "CALL IN RINGING :" + incomingNumber);
                     break;
                 //电话接听
                 case TelephonyManager.CALL_STATE_OFFHOOK:
                     if (incomingFlag) {
-                        Log.e("PhoneReceiver", "CALL IN ACCEPT :" + incomingNumber);
+//                        Log.e("PhoneReceiver", "CALL IN ACCEPT :" + incomingNumber);
                     }
                     break;
                 //电话挂机
                 case TelephonyManager.CALL_STATE_IDLE:
                     if (incomingFlag) {
-                        Log.e("PhoneReceiver", "CALL IDLE");
+//                        Log.e("PhoneReceiver", "CALL IDLE");
                     }
                     break;
             }
