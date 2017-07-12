@@ -23,6 +23,8 @@ public interface InterfaceManagement {
         String Telephonerecording = "http://call.ycome.com/api/tel/total";
         //电话列表详情
         String Listdetails = "http://call.ycome.com/api/tel/records";
+        //更新apk网址
+        String upUpdateUri = "http://call.ycome.com/api/version";
     }
 
 }

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.yconme.callphone.Bean.Updata;
+import com.yconme.callphone.Beasic.InterfaceManagement;
 import com.yconme.callphone.R;
 
 import java.io.File;
@@ -29,6 +30,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -68,7 +71,7 @@ public class UpdataManger {
     //更新的网址
     private String mVersion_path;
     private static Context mContext;
-    private static final String bingo_packname = "com.bingoGame.app";
+    private static final String bingo_packname = "com.yconme.callphone";
     private Handler mGetversionHanlder = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -78,11 +81,16 @@ public class UpdataManger {
 
                 Gson gson = new Gson();
                 Updata updata = gson.fromJson(jsonObject, Updata.class);
-                Updata.data data = updata.getData();
-                mVersion_code = data.getApp_version();
-                mVersion_name = data.getApp_title();
-                mVersion_desc = data.getApp_description();
-                mVersion_path = data.getApp_downloadurl();
+
+                mVersion_code = updata.getVersion();
+                mVersion_name = "更新提示";
+                List<String> note = updata.getNote();
+                for (int i = 0; i < note.size(); i++) {
+                    String s = note.get(i);
+                    Log.e(TAG, "s: " + s);
+                    mVersion_desc = s + s;
+                }
+                mVersion_path = updata.getUrl();
 
 
                 if (isUpdate()) {
@@ -132,7 +140,7 @@ public class UpdataManger {
     public void checkUpdate() {
         //请求队列
         OkHttpClient okHttpClient = new OkHttpClient();
-        Request build = new Request.Builder().url("http://store.qdjiaying.com/index.php?s=/Api/version.html").build();
+        Request build = new Request.Builder().url(InterfaceManagement.PathUrl.upUpdateUri).build();
         Call call = okHttpClient.newCall(build);
         call.enqueue(new Callback() {
             @Override
@@ -143,6 +151,7 @@ public class UpdataManger {
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
                 String string = response.body().string();
+                Log.e("TAG", "升级数据: " + string);
                 Message msg = Message.obtain();
                 //请求成功的值，赋值给，msg
                 msg.obj = string;
@@ -161,7 +170,7 @@ public class UpdataManger {
         int serverVersion = Integer.parseInt(mVersion_code);
         int localVersion = 1;
         try {
-            localVersion = mContext.getPackageManager().getPackageInfo("com.bingoGame.app", 0).versionCode;
+            localVersion = mContext.getPackageManager().getPackageInfo("com.yconme.callphone", 0).versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -239,7 +248,7 @@ public class UpdataManger {
                 try {
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                         String sdPath = Environment.getExternalStorageDirectory() + "/";
-                        mSavePath = sdPath + "bingo_download";
+                        mSavePath = sdPath + "callphone_download";
                         dir = new File(mSavePath);
                         if (!dir.exists()) {
                             dir.mkdir();

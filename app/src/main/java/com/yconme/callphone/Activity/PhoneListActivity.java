@@ -29,7 +29,9 @@ import com.yconme.callphone.Bean.SubmitBean;
 import com.yconme.callphone.Beasic.InterfaceManagement;
 import com.yconme.callphone.Beasic.MyBaseActivity;
 import com.yconme.callphone.R;
+import com.yconme.callphone.Utils.CheckAudioPermission;
 import com.yconme.callphone.Utils.MyLlistview;
+import com.yconme.callphone.Utils.RecorderUtil;
 import com.yconme.callphone.Utils.SharedPreferencesUtils;
 import com.yconme.callphone.Utils.ToastUtils;
 
@@ -117,8 +119,9 @@ public class PhoneListActivity extends MyBaseActivity {
     private String againstring;
     private int postition;
     private String mobile;
-    private static NewDialog newDialog;
-    private Handler getHandler = new Handler();
+    private boolean hasPermission;
+    private static RecorderUtil recorderUtil;
+    //    private static NewDialog newDialog;
     //获取单个号码 进行拨打电话功能
     private Handler CallHandler = new Handler() {
 
@@ -144,11 +147,6 @@ public class PhoneListActivity extends MyBaseActivity {
                         basis = aPackage.getBasis();
                         //套餐
                         basis1 = aPackage.getBasis();
-                        //***************************************************
-                        newPhoneListAdapter.setPhoneBean(phoneBean1);
-                        listView.setAdapter(newPhoneListAdapter);
-                        //***************************************************
-
                         //1输入  0不输入
                         int is_memo = PhoneListActivity.this.data.getIs_memo();
 //                        if (is_memo == 0) {
@@ -158,14 +156,20 @@ public class PhoneListActivity extends MyBaseActivity {
 //                        }
                         text_phonelist_phonenumber.setText(mobile);
                         text_phonelist_phonename.setText(desc);
-                        if (getboolean != true) {
+                        //***************************************************
+                        newPhoneListAdapter.setPhoneBean(phoneBean1);
+                        listView.setAdapter(newPhoneListAdapter);
+                        newPhoneListAdapter.notifyDataSetChanged();
+                        //***************************************************
+
+//                        if (getboolean != true) {
                             //继续 or 暂时
                             if (aBoolean != true) {
                                 //获取数据后开始打电话
                                 String mob_key = SharedPreferencesUtils.getstring("mob_key", "");
                                 callphonee(mob_key);
                             }
-                        }
+//                        }
 
                         statusPhone = false;
 
@@ -194,64 +198,29 @@ public class PhoneListActivity extends MyBaseActivity {
                 case 1:
                     String mob_key = SharedPreferencesUtils.getstring("mob_key", "");
                     if (mob_key != null) {
-                        File FileName = Environment.getExternalStorageDirectory();
-                        path = FileName.getPath() + "/data";
-                        path += "/" + mob_key + ".MP3";
-                        Log.e(TAG, "path: " + path);
-                        file_path = new File(path);
-                        //初始化 MediaRecorder
-                        if (mRecorder == null) {
-                            mRecorder = new MediaRecorder();
-                            mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                            mRecorder.setOutputFile(path);
-                            Log.v("START", "开始录音");
-                            try {
-                                mRecorder.prepare();
-                                mRecorder.start();
-                            } catch (IllegalStateException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                        boolean hasPermission = CheckAudioPermission.isHasPermission(content);
+                        if (hasPermission == true) {
+                            recorderUtil = new RecorderUtil(mob_key + ".mp3");
+                            recorderUtil.startRecording();
+                            Log.e("TAG", "开始录音: ");
                         } else {
-                            stop();
-                            mRecorder = new MediaRecorder();
-                            mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                            mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                            mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                            mRecorder.setOutputFile(path);
-                            Log.v("START", "开始录音");
-                            try {
-                                mRecorder.prepare();
-                            } catch (IllegalStateException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            mRecorder.start();
+                            ToastUtils.showToast(content, "为空");
                         }
-                        orBoolen = false;
-
-                    } else {
-                        ToastUtils.showToast(content, "为空");
                     }
 
-
-                    try {
-                        newDialog.show();
-                        Button view_button = newDialog.getView_button();
-                        view_button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                newDialog.dismiss();
-                                rejectCall();
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        newDialog.show();
+//                        Button view_button = newDialog.getView_button();
+//                        view_button.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                newDialog.dismiss();
+//                                rejectCall();
+//                            }
+//                        });
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
 
 
                     break;
@@ -259,10 +228,9 @@ public class PhoneListActivity extends MyBaseActivity {
         }
     };
 
+
     /**
      * 加载视图
-     *
-     * @return
      */
     @Override
     public int setview() {
@@ -272,8 +240,9 @@ public class PhoneListActivity extends MyBaseActivity {
     //初始化数据
     @Override
     public void init() {
+        hasPermission = CheckAudioPermission.isHasPermission(content);
         content = PhoneListActivity.this;
-        newDialog = new NewDialog(PhoneListActivity.this);
+//        newDialog = new NewDialog(PhoneListActivity.this);
         gson = new Gson();
         //请求服务器电话列表
         okHttpClient = new OkHttpClient();
@@ -310,9 +279,9 @@ public class PhoneListActivity extends MyBaseActivity {
         //详情
         iv_phonelist_details = (ImageView) findViewById(R.id.phonelist_details);
 
-        tv_phonelist_tv_dialed.setText("今天已拨打:" + "个");
+        tv_phonelist_tv_dialed.setText("今天已拨打:" + "0" + "个");
 
-        tv_phonelist_tv_success.setText("成功" + "个");
+        tv_phonelist_tv_success.setText("成功" + "0" + "个");
 
     }
 
@@ -324,7 +293,11 @@ public class PhoneListActivity extends MyBaseActivity {
 
         taoken = SharedPreferencesUtils.getstring("taoken", "");
         //获取电话数据
-        againData(taoken);
+        if (hasPermission == true) {
+            againData(taoken);
+        } else {
+            ToastUtils.showToast(context, "您没有录音权限请开启！！！");
+        }
         /**
          * listview 实现不失去焦点的单选
          */
@@ -340,10 +313,10 @@ public class PhoneListActivity extends MyBaseActivity {
                         a.setIsdel(false);
                     }
                     phoneListIsabooleen.get(i).setIsdel(true);
+                    listView.requestLayout();
                     newPhoneListAdapter.notifyDataSetChanged();
                     itemTexit = basis1.get(i);
                 }
-
             }
         });
 
@@ -364,6 +337,7 @@ public class PhoneListActivity extends MyBaseActivity {
             @Override
             public void onClick(View view) {
                 StateJ = 1;
+
                 iv_phonelist_btn_success_dian.setImageResource(R.mipmap.new_gree);
                 iv_phonelist_btn_missed_dian.setImageResource(R.mipmap.new_hs);
                 iv_phonelist_btn_hangup_dian.setImageResource(R.mipmap.new_hs);
@@ -378,12 +352,11 @@ public class PhoneListActivity extends MyBaseActivity {
             @Override
             public void onClick(View view) {
                 StateJ = 0;
+
                 iv_phonelist_btn_success_dian.setImageResource(R.mipmap.new_hs);
                 iv_phonelist_btn_missed_dian.setImageResource(R.mipmap.new_gree);
                 iv_phonelist_btn_hangup_dian.setImageResource(R.mipmap.new_hs);
                 iv_phonelist_btn_fall_dian.setImageResource(R.mipmap.new_hs);
-
-
             }
         });
         /**
@@ -422,20 +395,12 @@ public class PhoneListActivity extends MyBaseActivity {
         iv_phonelist_iv_suspend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (statusPhone == false) {
                 strings.clear();
-                if (orBoolen == false) {
-                    if (mRecorder != null) {
-                        Log.v("STOP", "已停止");
-                        try {
-                            mRecorder.stop();
-                            mRecorder.release();
-                        } catch (IllegalStateException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    orBoolen = true;
-                }
+//                if (orBoolen == false) {
+                recorderUtil.stopRecording();
+                String filePath = recorderUtil.getFilePath();
+//                Log.e("TAG", "新的路径+filePath: " + "-----" + filePath);
+//                }
                 //计时结束-------------------------------
                 Log.e(TAG, "计时结束: ");
                 Date endDate = new Date(System.currentTimeMillis());
@@ -449,6 +414,7 @@ public class PhoneListActivity extends MyBaseActivity {
                 }
                 getboolean = true;
                 isboolean = true;
+                upboolean = false;
                 ToastUtils.showToast(PhoneListActivity.this, "已暂停");
 
             }
@@ -460,34 +426,28 @@ public class PhoneListActivity extends MyBaseActivity {
             @Override
             public void onClick(View view) {
                 strings.clear();
-                if (orBoolen == false) {
-                    if (mRecorder != null) {
-                        Log.v("STOP", "已停止");
-                        try {
-                            mRecorder.stop();
-                            mRecorder.release();
-                        } catch (IllegalStateException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    orBoolen = true;
-                }
+                recorderUtil.stopRecording();
+                String filePath = recorderUtil.getFilePath();
+                Log.e("TAG", "新的路径+filePath: " + "-----" + filePath);
                 //计时结束-------------------------------
                 Log.e(TAG, "计时结束: ");
                 Date endDate = new Date(System.currentTimeMillis());
                 long diff = endDate.getTime() - curDate.getTime();
                 String s = String.valueOf(diff);
+                int second = Integer.parseInt(s);
                 ztboolean = true;
-                if (upboolean == false) {
+//                if (upboolean == false) {
                     String srt_remarks = text_remarks.getText().toString().trim();
                     String s1 = String.valueOf(StateJ);
-                    submitDate(taoken, valueOf(id1), s1, itemTexit, srt_remarks, s);
-                }
+                double v = second / 1000.0;
+                String s2 = String.valueOf(v);
+                submitDate(taoken, valueOf(id1), s1, itemTexit, srt_remarks, s2);
+//                }
                 getboolean = false;
                 aBoolean = false;
                 upboolean = false;
-                CallHandler.sendEmptyMessage(1);
-//                againData(taoken);
+//                CallHandler.sendEmptyMessage(1);
+                againData(taoken);
 
 //                }
 
@@ -508,9 +468,7 @@ public class PhoneListActivity extends MyBaseActivity {
      *
      * @param phoneNumber
      */
-    public void callphonee(final String phoneNumber) {
-
-
+    public void callphonee(String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_CALL);
         Uri data = Uri.parse("tel:" + phoneNumber);
         intent.setData(data);
@@ -531,72 +489,89 @@ public class PhoneListActivity extends MyBaseActivity {
      */
     public void submitDate(final String taoken, String id, final String status, String packagee, String memo, String stime) {
         //status = 0 未接通 1成功 -1失败
-//        Log.e(TAG, "submitDate: " + "+" + id + "+" + status + "+" + packagee + "+" + memo + "+" + stime);
-        if (taoken != null && id != null && status != null && packagee != null && memo != null && stime != null) {
+        Log.e(TAG, "--" + taoken + "---" + id + "---" + status + "---" + packagee + "---" + memo + "---" + stime);
+        if (!(taoken != null && id != null && status != null && packagee != null && memo != null && stime != null)) {
+            ToastUtils.showToast(PhoneListActivity.this, "有数值为空，请留意");
 
-            FormBody build = new FormBody.Builder().add("taoken", taoken).add("id", id).add("status", status).add("_package", packagee).add("memo", memo).add("time", stime).build();
-            Request build1 = new Request.Builder().url(InterfaceManagement.PathUrl.Uploadcalllog).post(build).build();
-            Call call = okHttpClient.newCall(build1);
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.e(TAG, "getDate_onFailure: " + e.toString());
+            return;
+        }
+        FormBody build = new FormBody.Builder().add("taoken", taoken).add("id", id).add("status", status).add("_package", packagee).add("memo", memo).add("time", stime).build();
+        Request build1 = new Request.Builder().url(InterfaceManagement.PathUrl.Uploadcalllog).post(build).build();
+        Call call = okHttpClient.newCall(build1);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "getDate_onFailure: " + e.toString());
 
-                }
+            }
 
-                @Override
-                public void onResponse(final Call call, Response response) throws IOException {
-                    String string = response.body().string();
-                    Log.e(TAG, "通话记录: " + string);
-                    try {
-                        JSONObject jsonObject = new JSONObject(string);
-                        String status1 = jsonObject.getString("status");
-                        final String message = jsonObject.getString("message");
-                        if (status1.equals("1")) {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ToastUtils.showToast(PhoneListActivity.this, message);
-//                                    if (statusPhone != true) {
-                                    // 得到sd卡内路径
-                                    String imagePath = Environment.getExternalStorageDirectory().toString() + "/data";
+            @Override
+            public void onResponse(final Call call, Response response) throws IOException {
+                String string = response.body().string();
+//                Log.e(TAG, "通话记录: " + string);
+                try {
+                    JSONObject jsonObject = new JSONObject(string);
+                    String status1 = jsonObject.getString("status");
+                    final String message = jsonObject.getString("message");
+                    if (status1.equals("1")) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+//                                  ***************************************
 
-                                    String mob_key = SharedPreferencesUtils.getstring("mob_key", "");
-
-                                    if (mob_key != null) {
-                                        apkFile = new File(imagePath, "/" + mob_key + ".MP3");
-                                        //上传文件  名字     路径
-                                        Submitaudio(mob_key, apkFile);
-                                    } else {
-                                        ToastUtils.showToast(PhoneListActivity.this, "路径为空");
+                                List<PhoneListIsaboolean> phoneListIsabooleen = newPhoneListAdapter.getlistIsabooleen();
+                                for (int i = 0; i < basis1.size(); i++) {
+                                    PhoneListIsaboolean phoneListIsaboolean = phoneListIsabooleen.get(i);
+                                    boolean isdel = phoneListIsaboolean.isdel();
+                                    if (!isdel) {
+                                        for (PhoneListIsaboolean a : phoneListIsabooleen) {
+                                            a.setIsdel(false);
+                                        }
+                                        listView.requestLayout();
+                                        newPhoneListAdapter.notifyDataSetChanged();
                                     }
-
-
                                 }
-                            });
 
-                        } else if (status1.equals("-1")) {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ToastUtils.showToast(PhoneListActivity.this, message);
-                                    startActivity(new Intent(PhoneListActivity.this, CompletedActivity.class));
-                                    finish();
+                                iv_phonelist_btn_success_dian.setImageResource(R.mipmap.new_hs);
+                                iv_phonelist_btn_missed_dian.setImageResource(R.mipmap.new_hs);
+                                iv_phonelist_btn_hangup_dian.setImageResource(R.mipmap.new_hs);
+                                iv_phonelist_btn_fall_dian.setImageResource(R.mipmap.new_hs);
+                                text_remarks.setText("");
+//                                   ***************************************
+                                ToastUtils.showToast(PhoneListActivity.this, message);
+                                String mob_key = SharedPreferencesUtils.getstring("mob_key", "");
+
+                                if (mob_key != null) {
+                                    String filePath = recorderUtil.getFilePath();
+                                    //上传文件  名字     路径
+//                                    Log.e("TAG", "上传之前的内容: " + filePath + "-----------" + mob_key);
+                                    Submitaudio(mob_key, filePath);
+                                } else {
+                                    ToastUtils.showToast(PhoneListActivity.this, "路径为空");
                                 }
-                            });
-                        }
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+
+                            }
+                        });
+
+                    } else if (status1.equals("-1")) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                ToastUtils.showToast(PhoneListActivity.this, message);
+                                startActivity(new Intent(PhoneListActivity.this, CompletedActivity.class));
+                                finish();
+                            }
+                        });
                     }
 
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            });
 
-        } else {
-            ToastUtils.showToast(PhoneListActivity.this, "有数值为空，请留意");
-        }
+
+            }
+        });
 
 
     }
@@ -604,6 +579,7 @@ public class PhoneListActivity extends MyBaseActivity {
     /**
      * @param taoken
      */
+
     public void againData(String taoken) {
         FormBody staff_id = new FormBody.Builder().add("taoken", taoken).build();
         Request build = new Request.Builder().url(InterfaceManagement.PathUrl.Telephonedata).post(staff_id).build();
@@ -619,7 +595,6 @@ public class PhoneListActivity extends MyBaseActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.code() == 200) {
                     againstring = response.body().string();
-//                    Log.e(TAG, "获取电话列表数据: " + string);
                     if (againstring != null) {
 
                         CallHandler.sendEmptyMessage(1);
@@ -637,7 +612,7 @@ public class PhoneListActivity extends MyBaseActivity {
         });
     }
 
-    public void Submitaudio(String luname, final File file) {
+    public void Submitaudio(String luname, final String file) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("taoken", taoken)
@@ -661,19 +636,28 @@ public class PhoneListActivity extends MyBaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String string1 = response.body().string();
-//                Log.i(TAG, "提交通话录音: " + string1);
                 SubmitBean submitBean = gson.fromJson(string1, SubmitBean.class);
                 String status = submitBean.getStatus();
                 final String message = submitBean.getMessage();
                 if (status.equals("1")) {
-                    basis1.clear();
-                    upboolean = true;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+//                            basis1.clear();
+                            getboolean = true;
+                            upboolean = true;
+//                            Log.e("TAG", "上传成功: ");
+                            newPhoneListAdapter.notifyDataSetChanged();
+//                            againData(taoken);
+                        }
+                    });
+
                     if (ztboolean == true) {
                         mobile = null;
                         /**
                          * 当上传结束后，回调一次请求电话列表，然后继续拨打电话
                          */
-                        againData(taoken);
+//                        againData(taoken);
                     }
 
                 } else if (status.equals("-1")) {
@@ -782,3 +766,4 @@ public class PhoneListActivity extends MyBaseActivity {
 
 
 }
+

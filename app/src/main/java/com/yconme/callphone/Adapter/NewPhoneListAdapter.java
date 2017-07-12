@@ -94,7 +94,7 @@ public class NewPhoneListAdapter extends BaseAdapter {
     }
 
 
-    public static class NewPhoneList_ViewHoler {
+      public static class NewPhoneList_ViewHoler {
         public ImageView imageView_phone_list_iv_dian;
         public TextView textView_phone_list_rela_tv;
         public CheckBox checkBox;

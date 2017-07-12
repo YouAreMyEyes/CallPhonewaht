@@ -27,7 +27,8 @@
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
-
+        <service android:name=".Utils.UpdataService"></service>
+        <receiver android:name=".Utils.UpdataService$DownloadCompleteReceiver"></receiver>
         <receiver android:name=".Activity.PhoneStatReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
@@ -163,6 +164,7 @@
 
     </application>
     <!-- Required -->
+
     <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
     <uses-permission android:name="com.yconme.callphone.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />

@@ -1,86 +1,45 @@
 package com.yconme.callphone.Bean;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/4/14 0014.
  */
 
 public class Updata {
-    private data data;
-    private String msg;
-    private String error_code;
 
-    public Updata.data getData() {
-        return data;
+
+    /**
+     * version : 0.01
+     * note : ["解决了反复拨打同一电话号码的错误。","解决了通话记录时长统计不准的错误。"]
+     * url : http://call.ycome.com/storage/app-release.apk
+     */
+
+    private String version;
+    private String url;
+    private List<String> note;
+
+    public String getVersion() {
+        return version;
     }
 
-    public void setData(Updata.data data) {
-        this.data = data;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getUrl() {
+        return url;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getError_code() {
-        return error_code;
+    public List<String> getNote() {
+        return note;
     }
 
-    public void setError_code(String error_code) {
-        this.error_code = error_code;
+    public void setNote(List<String> note) {
+        this.note = note;
     }
-
-    public class data {
-        private String id;
-        private String app_version;
-        private String app_title;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getApp_version() {
-            return app_version;
-        }
-
-        public void setApp_version(String app_version) {
-            this.app_version = app_version;
-        }
-
-        public String getApp_title() {
-            return app_title;
-        }
-
-        public void setApp_title(String app_title) {
-            this.app_title = app_title;
-        }
-
-        public String getApp_description() {
-            return app_description;
-        }
-
-        public void setApp_description(String app_description) {
-            this.app_description = app_description;
-        }
-
-        public String getApp_downloadurl() {
-            return app_downloadurl;
-        }
-
-        public void setApp_downloadurl(String app_downloadurl) {
-            this.app_downloadurl = app_downloadurl;
-        }
-
-        private String app_description;
-        private String app_downloadurl;
-    }
-
-
 }
