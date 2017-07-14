@@ -69,7 +69,7 @@ public class PerfectActivity extends MyBaseActivity {
                 finish();
             }
         });
-        Log.e(TAG, "taoken: " + taoken);
+//        Log.e(TAG, "taoken: " + taoken);
         button_perfect_btn_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,7 +95,7 @@ public class PerfectActivity extends MyBaseActivity {
                         public void onResponse(Call call, Response response) throws IOException {
                             progressDialog.dismiss();
                             String string = response.body().string();
-                            Log.e(TAG, "perfect_string: " + string);
+//                            Log.e(TAG, "perfect_string: " + string);
                             try {
                                 JSONObject jsonObject = new JSONObject(string);
                                 String status = jsonObject.getString("status");

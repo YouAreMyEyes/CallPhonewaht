@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yconme.callphone.Bean.StartBean;
-import com.yconme.callphone.Beasic.MyBaseAdapter;
 import com.yconme.callphone.R;
 
 import java.io.IOException;

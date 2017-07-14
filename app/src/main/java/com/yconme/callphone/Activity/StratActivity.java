@@ -1,17 +1,13 @@
 package com.yconme.callphone.Activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,6 +52,7 @@ public class StratActivity extends MyBaseActivity {
     private ListView listView;
     private StartAdapter startAdapter;
     private TextView tv_start_activity_tv_vis;
+    private boolean simCard;
 
     @Override
     public int setview() {
@@ -64,6 +61,7 @@ public class StratActivity extends MyBaseActivity {
 
     @Override
     public void init() {
+        simCard = readSIMCard();
         tv_start_activity_tv_vis = (TextView) findViewById(R.id.start_activity_tv_vis);
         text_start_tv_total = (TextView) findViewById(R.id.start_tv_total);
         text_start_tv_current = (TextView) findViewById(R.id.start_tv_current);
@@ -73,14 +71,20 @@ public class StratActivity extends MyBaseActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(StratActivity.this, PhoneListActivity.class));
-                finish();
+                if (simCard == true) {
+                    startActivity(new Intent(StratActivity.this, PhoneListActivity.class));
+                    finish();
+                } else {
+                    ToastUtils.showToast(StratActivity.this, "您没有sim卡请插入");
+                }
+
             }
         });
 
         mPlayer = new MediaPlayer();
         mPlayer.setOnCompletionListener(new CompletionListener());
         strings = new ArrayList<>();
+
 
     }
 
@@ -110,13 +114,13 @@ public class StratActivity extends MyBaseActivity {
                 try {
                     data = startBean.getData();
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (data!=null){
+                        if (data != null) {
                             if (data.isEmpty()) {
                                 tv_start_activity_tv_vis.setVisibility(View.VISIBLE);
                                 listView.setVisibility(View.GONE);
@@ -150,7 +154,7 @@ public class StratActivity extends MyBaseActivity {
 //                        text_start_tv_current.setText("当前播放  " + i + "条");
 //                        Log.e("TAG", "i: " + 1);
 //                        songplay();
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
@@ -268,5 +272,21 @@ public class StratActivity extends MyBaseActivity {
 //        super.onPause();
 //    }
 
+    public boolean readSIMCard() {
 
+        TelephonyManager manager = (TelephonyManager) this
+                .getSystemService(TELEPHONY_SERVICE);// 取得相关系统服务
+        String imsi = manager.getSubscriberId(); // 取出IMSI
+        System.out.println("取出IMSI" + imsi);
+
+        if (imsi == null || imsi.length() <= 0) {
+            System.out.println("请确认sim卡是否插入或者sim卡暂时不可用！");
+            //APIFailSimBuyJNI();
+
+        } else {
+            System.out.println("有SIM卡");
+            return true;
+        }
+        return false;
+    }
 }

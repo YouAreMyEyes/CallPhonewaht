@@ -1,16 +1,9 @@
 package com.yconme.callphone.Activity;
 
-import android.content.Context;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,7 +18,6 @@ import com.yconme.callphone.R;
 import com.yconme.callphone.Utils.SharedPreferencesUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;

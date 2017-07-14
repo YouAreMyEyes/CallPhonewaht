@@ -35,9 +35,9 @@ public class RecorderUtil {
         }  
         mRecorder = new MediaRecorder();  
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);  
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        mRecorder.setOutputFile(mFileName);  
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        mRecorder.setOutputFile(mFileName);
         startTime = System.currentTimeMillis();  
         try {  
             mRecorder.prepare();  

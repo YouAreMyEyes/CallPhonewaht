@@ -22,7 +22,7 @@ public class PhoneStatReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(Intent.ACTION_NEW_OUTGOING_CALL)) {
             incomingFlag = false;
             final String phoneNum = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
-            Log.e(TAG, "phoneNum: " + phoneNum);
+//            Log.e(TAG, "phoneNum: " + phoneNum);
             PhoneListActivity.handler.sendEmptyMessage(1);
 
         } else {

@@ -21,7 +21,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="66dp"
                     android:background="@mipmap/new_phone_title_bg"
                     android:padding="6dp">
 
@@ -36,24 +36,24 @@
                             android:id="@+id/phonelist_tv_dialed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="今天已拨打:10 "
+                            android:text="  "
                             android:textColor="#fff"
-                            android:textSize="20sp" />
+                            android:textSize="26sp" />
 
                         <TextView
                             android:id="@+id/phonelist_tv_success"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="成功:6个 "
+                            android:text=" "
                             android:textColor="#fff"
-                            android:textSize="20sp" />
+                            android:textSize="26sp" />
                     </LinearLayout>
 
 
                     <ImageView
                         android:id="@+id/phonelist_details"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:src="@mipmap/new_phone_titile_details" />
@@ -61,7 +61,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="180dp"
+                    android:gravity="center"
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
                     android:paddingLeft="20dp"
@@ -79,7 +80,7 @@
                             android:layout_centerInParent="true"
                             android:text=""
                             android:textColor="#fff"
-                            android:textSize="36sp" />
+                            android:textSize="46sp" />
 
                     </RelativeLayout>
                     <RelativeLayout
@@ -89,13 +90,14 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:layout_marginTop="16dp"
                             android:id="@+id/phonelist_call_stats"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:text=""
                             android:textColor="#fff"
-                            android:textSize="12sp" />
+                            android:textSize="22sp" />
 
                     </RelativeLayout>
                     <RelativeLayout
@@ -111,21 +113,21 @@
                             android:layout_centerHorizontal="true"
                             android:text=""
                             android:textColor="#F5F5F6"
-                            android:textSize="14sp" />
+                            android:textSize="18sp" />
 
                     </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="6"
+                    android:gravity="center"
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
                     android:paddingLeft="40dp"
                     android:paddingRight="40dp"
-                    android:paddingTop="30dp">
+                    android:paddingTop="15dp">
 
 
                     <!--<LinearLayout-->
@@ -152,27 +154,27 @@
 
                         android:id="@+id/phone_linear_vg"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/scrollview"
-                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@mipmap/phonelist_taocan_bg">
 
                         <EditText
                             android:id="@+id/phone_edit_remarks"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="100dp"
                             android:layout_gravity="center"
                             android:background="#CDCDCF"
                             android:gravity="top"
                             android:hint="请填写内容显示您的需要的套餐的详情"
                             android:maxLines="4"
-                            android:minLines="4"
+                            android:minLines="11"
                             android:padding="2dp"
                             android:textColor="#fff"
                             android:textColorHighlight="#fff"
-                            android:textSize="16sp" />
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -297,14 +299,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@mipmap/new_phone_suspend" />
+                        android:src="@mipmap/new_pad_suspend" />
 
                     <ImageView
                         android:id="@+id/phonelist_iv_continue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@mipmap/new_phone_continue" />
+                        android:src="@mipmap/new_pad_continue" />
                 </LinearLayout>
 
 

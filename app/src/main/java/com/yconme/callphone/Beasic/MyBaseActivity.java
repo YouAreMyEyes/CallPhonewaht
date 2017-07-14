@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,13 +12,11 @@ import android.widget.Toast;
 
 import com.yconme.callphone.R;
 
-import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied;
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions;
-import me.zhanghai.android.effortlesspermissions.OpenAppDetailsDialogFragment;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
 /**

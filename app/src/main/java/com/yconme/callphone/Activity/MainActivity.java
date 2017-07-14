@@ -3,21 +3,17 @@ package com.yconme.callphone.Activity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.AudioFormat;
-import android.media.AudioRecord;
-import android.media.MediaRecorder;
+
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.PermissionChecker;
+
 import android.support.v7.app.AlertDialog;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
@@ -27,10 +23,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.yconme.callphone.Bean.LoginBean;
@@ -38,18 +32,12 @@ import com.yconme.callphone.Bean.Updata;
 import com.yconme.callphone.Beasic.InterfaceManagement;
 import com.yconme.callphone.Beasic.MyBaseActivity;
 import com.yconme.callphone.R;
-import com.yconme.callphone.Utils.CheckAudioPermission;
 import com.yconme.callphone.Utils.SharedPreferencesUtils;
 import com.yconme.callphone.Utils.ToastUtils;
-import com.yconme.callphone.Utils.UpdataManger;
 import com.yconme.callphone.Utils.UpdataService;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -171,11 +159,8 @@ public class MainActivity extends MyBaseActivity {
 
     @Override
     public void setbase() {
-        //用来检测更新
-//        new UpdataManger(MainActivity.this).checkUpdate();
         isUpdata();
         SharedPreferencesUtils.getboolean("isboolean", false);
-
         //设置光标位置为最后一位
         text_pass.addTextChangedListener(new TextWatcher() {
             @Override
@@ -408,5 +393,25 @@ public class MainActivity extends MyBaseActivity {
                 }
             }
         }
+    }
+
+
+
+    public boolean readSIMCard() {
+
+        TelephonyManager manager = (TelephonyManager) this
+                .getSystemService(TELEPHONY_SERVICE);// 取得相关系统服务
+        String imsi = manager.getSubscriberId(); // 取出IMSI
+        System.out.println("取出IMSI" + imsi);
+
+        if (imsi == null || imsi.length() <= 0) {
+            System.out.println("请确认sim卡是否插入或者sim卡暂时不可用！");
+            //APIFailSimBuyJNI();
+
+        } else {
+            System.out.println("有SIM卡");
+            return true;
+        }
+        return false;
     }
 }

@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package com.yconme.callphone.Activity;
+package com.yconme.callphone.Utils;
 
 import android.app.Activity;
 import android.content.Intent;

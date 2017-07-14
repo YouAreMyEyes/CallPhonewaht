@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 import com.yconme.callphone.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 /**
  * Created by samksaa on 2017/7/8.
