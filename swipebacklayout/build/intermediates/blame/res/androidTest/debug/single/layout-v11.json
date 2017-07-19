@@ -12,12 +12,36 @@
         "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\layout-v11\\notification_template_big_media_narrow_custom.xml"
     },
     {
+        "merged": "F:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v11\\notification_template_big_media.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\f1d87eb00a78d9cd09a0fb9c9d173e8a12a0999b\\output\\res\\layout-v11\\notification_template_big_media.xml"
+    },
+    {
         "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v11\\notification_template_big_media_custom.xml",
         "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\layout-v11\\notification_template_big_media_custom.xml"
     },
     {
+        "merged": "F:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v11\\notification_template_big_media_custom.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\f1d87eb00a78d9cd09a0fb9c9d173e8a12a0999b\\output\\res\\layout-v11\\notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "F:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v11\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\f1d87eb00a78d9cd09a0fb9c9d173e8a12a0999b\\output\\res\\layout-v11\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "F:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v11\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\f1d87eb00a78d9cd09a0fb9c9d173e8a12a0999b\\output\\res\\layout-v11\\notification_template_big_media_narrow.xml"
+    },
+    {
         "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v11\\notification_template_big_media_narrow.xml",
         "source": "C:\\Users\\samksaa\\.android\\build-cache\\b78ab03abc6a063e450f59d8d610f1b3bf00383b\\output\\res\\layout-v11\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "F:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v11\\notification_template_big_media_narrow_custom.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\f1d87eb00a78d9cd09a0fb9c9d173e8a12a0999b\\output\\res\\layout-v11\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "F:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v11\\notification_media_action.xml",
+        "source": "C:\\Users\\samksaa\\.android\\build-cache\\f1d87eb00a78d9cd09a0fb9c9d173e8a12a0999b\\output\\res\\layout-v11\\notification_media_action.xml"
     },
     {
         "merged": "E:\\adnroid_demo\\CallPhonewaht\\swipebacklayout\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-v11\\notification_media_cancel_action.xml",

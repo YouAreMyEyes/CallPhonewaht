@@ -119,6 +119,7 @@ public class PhoneListActivity extends MyBaseActivity {
     private String mobile;
     private boolean hasPermission;
     private static RecorderUtil recorderUtil;
+    private static TextView tv_call_stats;
     //    private static NewDialog newDialog;
     //获取单个号码 进行拨打电话功能
     private Handler CallHandler = new Handler() {
@@ -203,7 +204,7 @@ public class PhoneListActivity extends MyBaseActivity {
                             recorderUtil.startRecording();
                             Log.e("TAG", "开始录音: ");
                         } else {
-                            ToastUtils.showToast(content, "为空");
+                            ToastUtils.showToast(content, "没有录音权限请开启");
                         }
                     }
 
@@ -226,7 +227,6 @@ public class PhoneListActivity extends MyBaseActivity {
             }
         }
     };
-    private static TextView tv_call_stats;
 
 
     /**
@@ -283,7 +283,9 @@ public class PhoneListActivity extends MyBaseActivity {
 
         tv_phonelist_tv_success.setText("成功" + "0" + "个");
 
-        tv_call_stats = (TextView)findViewById(R.id.phonelist_call_stats);
+        tv_call_stats = (TextView) findViewById(R.id.phonelist_call_stats);
+
+        tv_call_stats.setText("");
 
     }
 
@@ -303,7 +305,6 @@ public class PhoneListActivity extends MyBaseActivity {
         /**
          * listview 实现不失去焦点的单选
          */
-        tv_call_stats.setText("");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -398,8 +399,11 @@ public class PhoneListActivity extends MyBaseActivity {
         iv_phonelist_iv_suspend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                strings.clear();
 //                if (orBoolen == false) {
+                if (recorderUtil == null) {
+                    return;
+                }
+                strings.clear();
                 recorderUtil.stopRecording();
                 rejectCall();
                 tv_call_stats.setText("以挂断");
@@ -432,6 +436,9 @@ public class PhoneListActivity extends MyBaseActivity {
         iv_phonelist_iv_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (recorderUtil == null) {
+                    return;
+                }
                 strings.clear();
                 recorderUtil.stopRecording();
                 String filePath = recorderUtil.getFilePath();
@@ -466,15 +473,8 @@ public class PhoneListActivity extends MyBaseActivity {
     }
 
 
-    @Override
-    public MyBaseActivity getactivity() {
-        return null;
-    }
-
-
     /**
      * 拨打电话
-     *
      * @param phoneNumber
      */
     public void callphonee(String phoneNumber) {
@@ -488,8 +488,8 @@ public class PhoneListActivity extends MyBaseActivity {
     }
 
     /**
+     * 上传通话记录成功与否
      * 0 未接通 1成功 -1失败
-     *
      * @param taoken
      * @param id
      * @param status
@@ -498,7 +498,7 @@ public class PhoneListActivity extends MyBaseActivity {
      */
     public void submitDate(final String taoken, String id, final String status, String packagee, String memo, String stime) {
         //status = 0 未接通 1成功 -1失败
-        Log.e("TAG", "--" + taoken + "---" + id + "---" + status + "---" + packagee + "---" + memo + "---" + stime);
+//        Log.e("TAG", "--" + taoken + "---" + id + "---" + status + "---" + packagee + "---" + memo + "---" + stime);
         if (!(taoken != null && id != null && status != null && packagee != null && memo != null && stime != null)) {
             ToastUtils.showToast(PhoneListActivity.this, "有数值为空，请留意");
 
@@ -587,9 +587,9 @@ public class PhoneListActivity extends MyBaseActivity {
     }
 
     /**
+     * 获取打电话列表 每次单条取
      * @param taoken
      */
-
     public void againData(String taoken) {
         FormBody staff_id = new FormBody.Builder().add("taoken", taoken).build();
         Request build = new Request.Builder().url(InterfaceManagement.PathUrl.Telephonedata).post(staff_id).build();
@@ -622,6 +622,11 @@ public class PhoneListActivity extends MyBaseActivity {
         });
     }
 
+    /**
+     * 上传通话录音
+     * @param luname
+     * @param file
+     */
     public void Submitaudio(String luname, final File file) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -685,7 +690,10 @@ public class PhoneListActivity extends MyBaseActivity {
         });
     }
 
-
+    /**
+     * 获取电话记录
+     * @param taoken
+     */
     private void getRecord(String taoken) {
         final FormBody taoken1 = new FormBody.Builder().add("taoken", taoken).build();
         Request build = new Request.Builder().url(InterfaceManagement.PathUrl.Telephonerecording).post(taoken1).build();
@@ -734,6 +742,25 @@ public class PhoneListActivity extends MyBaseActivity {
     }
 
 
+    /**
+     * 停止打电话
+     */
+    public static void rejectCall() {
+        try {
+            Method method = Class.forName("android.os.ServiceManager")
+                    .getMethod("getService", String.class);
+            IBinder binder = (IBinder) method.invoke(null, new Object[]{Context.TELEPHONY_SERVICE});
+            ITelephony telephony = ITelephony.Stub.asInterface(binder);
+            telephony.endCall();
+        } catch (NoSuchMethodException e) {
+            Log.d("TAG", "", e);
+        } catch (ClassNotFoundException e) {
+            Log.d("TAG", "", e);
+        } catch (Exception e) {
+        }
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -756,25 +783,10 @@ public class PhoneListActivity extends MyBaseActivity {
         }
     }
 
-
-    /**
-     * 停止打电话
-     */
-    public static void rejectCall() {
-        try {
-            Method method = Class.forName("android.os.ServiceManager")
-                    .getMethod("getService", String.class);
-            IBinder binder = (IBinder) method.invoke(null, new Object[]{Context.TELEPHONY_SERVICE});
-            ITelephony telephony = ITelephony.Stub.asInterface(binder);
-            telephony.endCall();
-        } catch (NoSuchMethodException e) {
-            Log.d("TAG", "", e);
-        } catch (ClassNotFoundException e) {
-            Log.d("TAG", "", e);
-        } catch (Exception e) {
-        }
+    @Override
+    public MyBaseActivity getactivity() {
+        return null;
     }
-
 
 }
 

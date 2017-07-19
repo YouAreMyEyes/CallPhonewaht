@@ -61,7 +61,8 @@ public class StratActivity extends MyBaseActivity {
 
     @Override
     public void init() {
-        simCard = readSIMCard();
+//        simCard = readSIMCard();
+        Log.e(TAG, "simCard: "+simCard );
         tv_start_activity_tv_vis = (TextView) findViewById(R.id.start_activity_tv_vis);
         text_start_tv_total = (TextView) findViewById(R.id.start_tv_total);
         text_start_tv_current = (TextView) findViewById(R.id.start_tv_current);
@@ -71,12 +72,12 @@ public class StratActivity extends MyBaseActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (simCard == true) {
+//                if (simCard == true) {
                     startActivity(new Intent(StratActivity.this, PhoneListActivity.class));
                     finish();
-                } else {
-                    ToastUtils.showToast(StratActivity.this, "您没有sim卡请插入");
-                }
+//                } else {
+//                    ToastUtils.showToast(StratActivity.this, "您没有sim卡请插入");
+//                }
 
             }
         });

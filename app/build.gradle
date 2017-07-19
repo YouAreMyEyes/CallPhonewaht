@@ -7,6 +7,8 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+
     defaultConfig {
         applicationId "com.yconme.callphone"
         minSdkVersion 16
